@@ -190,7 +190,7 @@ print(reframed.shape)
 
 # split into train and test sets
 values = reframed.values
-n_train_hours = 365*3 * 24
+n_train_hours = 365*3 * 24##前三年的数据用于训练
 train = values[:n_train_hours, :]
 test = values[n_train_hours:, :]
 # split into input and outputs
@@ -215,8 +215,9 @@ print (history.history['loss'][0])
 loss1=history.history['loss']
 val_loss=history.history['val_loss']
 
-pyplot.plot(history.history['loss'])
-pyplot.plot(history.history['val_loss'])
+pyplot.plot(history.history['loss'],label='loss')
+pyplot.plot(history.history['val_loss'],label='val loss')
+pyplot.legend()
 pyplot.show()
 
 # make a prediction

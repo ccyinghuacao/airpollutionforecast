@@ -182,7 +182,7 @@ values = values.astype('float32')
 scaler = MinMaxScaler(feature_range=(0, 1))
 scaled = scaler.fit_transform(values)
 # specify the number of lag hours
-n_hours = 3
+n_hours = 24
 n_features = 8
 # frame as supervised learning
 reframed = series_to_supervised(scaled, n_hours, 1)
@@ -209,14 +209,15 @@ model.add(LSTM(50, input_shape=(train_X.shape[1], train_X.shape[2])))
 model.add(Dense(1))
 model.compile(loss='mae', optimizer='adam')
 # fit network
-history = model.fit(train_X, train_y, epochs=3, batch_size=72, validation_data=(test_X, test_y), verbose=2, shuffle=False)
+history = model.fit(train_X, train_y, epochs=25, batch_size=72, validation_data=(test_X, test_y), verbose=2, shuffle=False)
 # plot history
 print (history.history['loss'][0])
 loss1=history.history['loss']
 val_loss=history.history['val_loss']
 
-pyplot.plot(history.history['loss'])
-pyplot.plot(history.history['val_loss'])
+pyplot.plot(history.history['loss'],label='loss')
+pyplot.plot(history.history['val_loss'],label='val_value')
+pyplot.legend()
 pyplot.show()
 
 # make a prediction

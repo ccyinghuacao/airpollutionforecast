@@ -182,7 +182,7 @@ values = values.astype('float32')
 scaler = MinMaxScaler(feature_range=(0, 1))
 scaled = scaler.fit_transform(values)
 # specify the number of lag hours
-n_hours = 3
+n_hours = 24
 n_features = 8
 # frame as supervised learning
 reframed = series_to_supervised(scaled, n_hours, 1)
@@ -221,17 +221,18 @@ inv_y = inv_y[:,0]
 
 pyplot.figure(2)
 #绘图
-pyplot.plot(inv_yhat[0:2000],label='predictive value')
-pyplot.plot(inv_y[0:2000],label='true value')
+pyplot.plot(inv_yhat[0:4000],label='predictive value')
+pyplot.plot(inv_y[0:4000],label='true value')
 pyplot.legend()
 pyplot.show()
 
 pyplot.figure(3)
 #绘图
-pyplot.plot(inv_yhat[2000:5000], label='predictive value')
-pyplot.plot(inv_y[2000:5000],label='true value')
+pyplot.plot(inv_yhat[4000:], label='predictive value')
+pyplot.plot(inv_y[4000:],label='true value')
 pyplot.legend()
 pyplot.show()
+
 
 # calculate RMSE
 rmse = sqrt(mean_squared_error(inv_y, inv_yhat))
